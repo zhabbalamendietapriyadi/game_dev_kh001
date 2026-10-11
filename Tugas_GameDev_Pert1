@@ -1,0 +1,43 @@
+Nama  : Muhammad Zhabbala Mendieta Priyadi
+NIM   : 20240801145
+Kelas : KH 001
+
+Player bergerak di dalam sebuah dungeon. Enemy harus mendeteksi player, menentukan apakah player berada dalam jangkauan, mencari jalur menuju player, kemudian bergerak menuju player.
+
+
+
+Identifikasi Algoritma yang digunakan?
+Buatlah flow chart untuk algoritma tersebut
+Buat code snippet untuk algoritma tersebut dengan bahasa pemrograman yang anda bisa?
+
+1. Untuk skenario pergerakan dan deteksi musuh di dalam dungeon, kita menggunakan beberapa algoritma :
+- Finite State Machine (FSM): Algoritma ini sangat cocok digunakan karena enemy memiliki beberapa kondisi (state) yang harus ditangani secara dinamis, seperti status diam, mendeteksi, dan mengejar.
+- Decision Tree: Dapat digunakan ketika NPC harus menentukan tindakan berdasarkan evaluasi terstruktur (misalnya: Apakah player terlihat? Apakah jarak dekat?).
+- A (A-Star)*: Algoritma ini merupakan solusi standar dalam Game AI untuk "Mencari Jalan Terpendek" saat NPC mencari rute menuju player di lingkungan seperti dungeon.
+- Steering Behaviour: Digunakan untuk menyelesaikan permasalahan "NPC berpindah Posisi" agar pergerakan fisiknya menuju pemain berjalan dengan natural.
+
+2.  Input: Ambil data Posisi Pemain (dan posisi musuh).
+    Proses 1: Lakukan evaluasi dengan Menghitung Jarak antara musuh dan pemain.   
+    Keputusan: Apakah jarak berada di dalam jangkauan deteksi? 
+              Jika Tidak: Selesai (Musuh diam / tidak bereaksi).
+              Jika Ya: Lanjut ke tahap pencarian rute.
+    Proses 2: Mulai Mencari Arah menggunakan kalkulasi pathfinding (A*).
+    Proses 3: Melakukan kalkulasi untuk menghitung langkah berdasarkan rute.   
+    Output / Update: Mengeksekusi instruksi update posisi untuk menetapkan lokasi baru musuh.
+
+3. Code Snippet
+function update_logika_musuh():(agar codenya di jalankan dalam game loop)
+    
+    mendapatkan posisi
+    jarak = kalkulasi_jarak(posisi_musuh, posisi_player)
+    
+    mendeteksi dengan menggunakan FSM
+    if jarak <= batas_penglihatan_musuh:
+        
+        mencari jalur terdekat ke player
+        rute_jalan = cari_rute_a_star(posisi_musuh, posisi_player)
+        
+        bergerak dan update posisi
+        arah_maju = ambil_langkah_dari(rute_jalan)
+        posisi_musuh = posisi_musuh + arah_maju
+    
